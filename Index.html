@@ -1,0 +1,1044 @@
+এখানে তোমার দেওয়া Django গাইডের ঠিক একই ডিজাইন এবং স্টাইল ব্যবহার করে **"HTML সম্পূর্ণ গাইড | Basic to Pro"** তৈরি করে দেওয়া হলো। এতে HTML-এর একদম বেসিক ট্যাগ থেকে শুরু করে অ্যাডভান্সড সেমান্টিক ট্যাগ, ফর্ম, এসইও (SEO) মেটা ট্যাগ এবং সম্পূর্ণ রোডম্যাপ কভার করা হয়েছে, যাতে কোনো কিছুই বাদ না পড়ে।
+নিচের কোডটি কপি করে index.html নামে সেভ করে তোমার GitHub-এ হোস্ট করতে পারো।
+```html
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML5 সম্পূর্ণ গাইড | Basic to Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Hind+Siliguri:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2333;
+    --border: #30363d;
+    --accent: #58a6ff;
+    --accent2: #3fb950;
+    --accent3: #f78166;
+    --accent4: #d2a8ff;
+    --accent5: #ffa657;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --text-dim: #6e7681;
+    --code-bg: #0d1117;
+    --tag-html: #e34f26;
+    --tag-html-text: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Hind Siliguri', sans-serif;
+    line-height: 1.7;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #2b110c 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 64px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(227, 79, 38, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(227, 79, 38, 0.12);
+    border: 1px solid rgba(227, 79, 38, 0.3);
+    color: var(--accent3);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .hero h1 .highlight { color: var(--accent3); }
+  .hero h1 .highlight2 { color: var(--accent2); }
+  .hero p {
+    color: var(--text-muted);
+    font-size: 18px;
+    max-width: 600px;
+    margin: 0 auto 32px;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent3);
+  }
+  .stat-label { font-size: 13px; color: var(--text-muted); }
+
+  /* ── NAV ── */
+  .nav-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13,17,23,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .nav-bar::-webkit-scrollbar { height: 3px; }
+  .nav-bar::-webkit-scrollbar-thumb { background: var(--border); }
+  .nav-inner {
+    display: inline-flex;
+    gap: 4px;
+    padding: 8px 0;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .nav-btn {
+    background: none; border: none;
+    color: var(--text-muted);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-btn:hover { color: var(--text); background: var(--surface); }
+  .nav-btn.active { color: var(--accent3); background: rgba(227, 79, 38, 0.1); }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  /* ── SECTION ── */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-header {
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-eyebrow {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent3);
+    margin-bottom: 8px;
+  }
+  .section-header h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .section-header p { color: var(--text-muted); font-size: 15px; }
+
+  /* ── CARDS ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--accent3); }
+  .card-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  .card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ── CMD BLOCK ── */
+  .cmd-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .cmd-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .cmd-dots { display: flex; gap: 6px; }
+  .cmd-dots span {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .cmd-dots span:nth-child(1) { background: #ff5f56; }
+  .cmd-dots span:nth-child(2) { background: #ffbd2e; }
+  .cmd-dots span:nth-child(3) { background: #27c93f; }
+  .cmd-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .cmd-tag {
+    margin-left: auto;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .tag-html { background: var(--tag-html); color: var(--tag-html-text); }
+  .tag-info { background: rgba(210,168,255,0.15); color: var(--accent4); }
+
+  .cmd-body { padding: 16px; }
+
+  .cmd-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .cmd-item {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(48,54,61,0.5);
+  }
+  .cmd-item:last-child { border-bottom: none; }
+  .cmd-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent2);
+    background: rgba(63,185,80,0.06);
+    border: 1px solid rgba(63,185,80,0.15);
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    display: inline-block;
+    word-break: break-all;
+  }
+  .cmd-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    padding-left: 2px;
+    margin-top: 4px;
+  }
+  .cmd-desc .bn { color: var(--text); }
+  .cmd-desc .en { color: var(--text-muted); font-style: italic; }
+
+  /* ── CODE BLOCK ── */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+  .code-filename {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .code-filename .path { color: var(--text-dim); }
+  .code-filename .file { color: var(--accent5); }
+  pre {
+    padding: 20px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  pre::-webkit-scrollbar { height: 4px; }
+  pre::-webkit-scrollbar-thumb { background: var(--border); }
+  
+  /* Syntax Highlighting */
+  .kw { color: #ff7b72; } /* Tags, Keywords */
+  .fn { color: #d2a8ff; } /* Attributes */
+  .st { color: #a5d6ff; } /* Strings/Values */
+  .cm { color: var(--text-dim); font-style: italic; } /* Comments */
+  .nb { color: #ffa657; }
+  .cl { color: #3fb950; }
+
+  /* ── STEP LIST ── */
+  .steps { counter-reset: step; }
+  .step-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .step-item:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    background: rgba(247, 129, 102, 0.1);
+    border: 1px solid rgba(247, 129, 102, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--accent3);
+    counter-increment: step;
+  }
+  .step-content h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .step-content p { font-size: 14px; color: var(--text-muted); }
+
+  /* ── TIPS ── */
+  .tip {
+    background: rgba(63,185,80,0.06);
+    border: 1px solid rgba(63,185,80,0.2);
+    border-left: 3px solid var(--accent2);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  .tip strong { color: var(--accent2); font-family: 'Space Grotesk', sans-serif; }
+
+  .warning {
+    background: rgba(255,166,87,0.06);
+    border: 1px solid rgba(255,166,87,0.2);
+    border-left: 3px solid var(--accent5);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  .warning strong { color: var(--accent5); }
+
+  /* ── LEVEL BADGE ── */
+  .level-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    vertical-align: middle;
+  }
+  .level-basic { background: rgba(63,185,80,0.15); color: var(--accent2); }
+  .level-mid { background: rgba(255,166,87,0.15); color: var(--accent5); }
+  .level-adv { background: rgba(247,129,102,0.15); color: var(--accent3); }
+
+  /* ── TABLE ── */
+  .tbl-wrap { overflow-x: auto; margin-bottom: 24px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th {
+    background: var(--surface2);
+    color: var(--text-muted);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(48,54,61,0.5);
+    vertical-align: top;
+  }
+  tr:hover td { background: rgba(88,166,255,0.03); }
+  td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent3);
+  }
+  td .bn { color: var(--text); display: block; }
+  td .en { color: var(--text-muted); font-size: 12px; font-style: italic; }
+
+  /* ── ROADMAP ── */
+  .roadmap { position: relative; padding-left: 32px; }
+  .roadmap::before {
+    content: '';
+    position: absolute;
+    left: 10px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent3), var(--accent4), var(--accent2));
+    border-radius: 2px;
+  }
+  .rm-item {
+    position: relative;
+    padding: 0 0 32px 24px;
+  }
+  .rm-item::before {
+    content: '';
+    position: absolute;
+    left: -28px; top: 6px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--accent3);
+    background: var(--bg);
+  }
+  .rm-item.done::before { background: var(--accent3); }
+  .rm-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .rm-list {
+    list-style: none;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .rm-list li::before { content: '→ '; color: var(--accent3); }
+  .rm-list li { padding: 2px 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 32px 24px;
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  @media (max-width: 640px) {
+    .card-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">Complete Frontend Resource</div>
+  <h1>
+    <span class="highlight">HTML5</span> সম্পূর্ণ গাইড<br>
+    <span style="font-size:0.6em;color:var(--text-muted)">Basic থেকে <span class="highlight2">Pro Expert</span> পর্যন্ত</span>
+  </h1>
+  <p>বাংলায় সম্পূর্ণ ব্যাখ্যা সহ HTML-এর সব ট্যাগ, ফর্ম, সেমান্টিক স্ট্রাকচার এবং এসইও (SEO)</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">110+</div><div class="stat-label">HTML Tags</div></div>
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">বিভাগ</div></div>
+    <div class="stat"><div class="stat-num">Basic→Pro</div><div class="stat-label">সম্পূর্ণ পথ</div></div>
+  </div>
+</div>
+
+<div class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="show('setup')">🛠 Setup & Boilerplate</button>
+    <button class="nav-btn" onclick="show('text')">📝 Text & Formatting</button>
+    <button class="nav-btn" onclick="show('media')">🖼 Media & Links</button>
+    <button class="nav-btn" onclick="show('tables')">📋 Tables & Lists</button>
+    <button class="nav-btn" onclick="show('forms')">📝 Forms & Inputs</button>
+    <button class="nav-btn" onclick="show('semantic')">🧱 Semantic & Layout</button>
+    <button class="nav-btn" onclick="show('advanced')">🚀 Advanced & APIs</button>
+    <button class="nav-btn" onclick="show('roadmap')">🗺 Roadmap</button>
+  </div>
+</div>
+
+<div class="container">
+
+<section id="setup" class="section active">
+  <div class="section-header">
+    <div class="section-eyebrow">প্রথম ধাপ</div>
+    <h2>🛠 Setup & Boilerplate</h2>
+    <p>HTML ফাইলের বেসিক স্ট্রাকচার বা কঙ্কাল। যেকোনো প্রজেক্ট এখান থেকেই শুরু হয়।</p>
+  </div>
+
+  <div class="tip"><strong>💡 টিপ:</strong> VS Code এ <code>!</code> লিখে Enter চাপলে নিচের পুরো Boilerplate কোডটি অটোমেটিক চলে আসবে। একে এমমেট (Emmet) অ্যাব্রেভিয়েশন বলে।</div>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-filename"><span class="path">project/</span><span class="file">index.html</span> — HTML5 Boilerplate</span>
+      <span class="cmd-tag tag-html">HTML</span>
+    </div>
+    <pre><span class="cm">&lt;!-- এটি ব্রাউজারকে বলে যে এটি একটি HTML5 ডকুমেন্ট --&gt;</span>
+<span class="kw">&lt;!DOCTYPE</span> html<span class="kw">&gt;</span>
+
+<span class="cm">&lt;!-- সম্পূর্ণ ডকুমেন্টের মূল ট্যাগ, lang="en" বা "bn" ভাষা নির্ধারণ করে --&gt;</span>
+<span class="kw">&lt;html</span> <span class="fn">lang</span>=<span class="st">"en"</span><span class="kw">&gt;</span>
+<span class="kw">&lt;head&gt;</span>
+    <span class="cm">&lt;!-- ক্যারেক্টার এনকোডিং, যাতে সব ভাষার অক্ষর সাপোর্ট করে (যেমন: বাংলা) --&gt;</span>
+    <span class="kw">&lt;meta</span> <span class="fn">charset</span>=<span class="st">"UTF-8"</span><span class="kw">&gt;</span>
+    
+    <span class="cm">&lt;!-- রেস্পন্সিভ ডিজাইনের জন্য অত্যন্ত জরুরি --&gt;</span>
+    <span class="kw">&lt;meta</span> <span class="fn">name</span>=<span class="st">"viewport"</span> <span class="fn">content</span>=<span class="st">"width=device-width, initial-scale=1.0"</span><span class="kw">&gt;</span>
+    
+    <span class="cm">&lt;!-- ব্রাউজারের ট্যাবে যেই নাম দেখাবে --&gt;</span>
+    <span class="kw">&lt;title&gt;</span>Document Title<span class="kw">&lt;/title&gt;</span>
+<span class="kw">&lt;/head&gt;</span>
+<span class="kw">&lt;body&gt;</span>
+    
+    <span class="cm">&lt;!-- ব্যবহারকারী ওয়েবসাইটে যা কিছু দেখবে, তা এই body এর ভেতরে লিখতে হয় --&gt;</span>
+    <span class="kw">&lt;h1&gt;</span>Hello World!<span class="kw">&lt;/h1&gt;</span>
+
+<span class="kw">&lt;/body&gt;</span>
+<span class="kw">&lt;/html&gt;</span></pre>
+  </div>
+
+  <div class="cmd-block">
+    <div class="cmd-header">
+      <div class="cmd-dots"><span></span><span></span><span></span></div>
+      <span class="cmd-title">গুরুত্বপূর্ণ কনসেপ্ট</span>
+      <span class="cmd-tag tag-info">INFO</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-item">
+        <span class="cmd-code">Element vs Tag</span>
+        <div class="cmd-desc">
+          <span class="bn">👉 <code>&lt;p&gt;</code> হলো Open Tag, <code>&lt;/p&gt;</code> হলো Close Tag। আর ভেতরের টেক্সট সহ পুরোটাকে (<code>&lt;p&gt;Hello&lt;/p&gt;</code>) বলা হয় <strong>Element</strong>।</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <span class="cmd-code">Attributes (অ্যাট্রিবিউট)</span>
+        <div class="cmd-desc">
+          <span class="bn">👉 ট্যাগের অতিরিক্ত তথ্য। যেমন: <code>&lt;a href="url"&gt;</code> এখানে <code>href</code> হলো অ্যাট্রিবিউট। এটি সবসময় Open Tag-এর ভেতরে থাকে।</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="text" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Content Layer</div>
+    <h2>📝 Text & Formatting Tags</h2>
+    <p>ওয়েবপেজে টেক্সট লেখা এবং সেগুলোকে সাজানোর জন্য প্রয়োজনীয় সব ট্যাগ।</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Tag Name</th>
+          <th>বাংলায় কাজ</th>
+          <th>Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>&lt;h1&gt; থেকে &lt;h6&gt;</td>
+          <td><span class="bn">হেডিং বা শিরোনাম লেখার জন্য। h1 সবচেয়ে বড় এবং h6 সবচেয়ে ছোট। (SEO এর জন্য একটি পেজে একটিই h1 রাখা উচিত)।</span></td>
+          <td><span class="level-badge level-basic">Basic</span></td>
+        </tr>
+        <tr>
+          <td>&lt;p&gt; ... &lt;/p&gt;</td>
+          <td><span class="bn">প্যারাগ্রাফ লেখার জন্য।</span></td>
+          <td><span class="level-badge level-basic">Basic</span></td>
+        </tr>
+        <tr>
+          <td>&lt;br&gt;</td>
+          <td><span class="bn">লাইন ব্রেক বা নতুন লাইনে যাওয়ার জন্য (এর কোনো closing tag নেই - Empty Element)।</span></td>
+          <td><span class="level-badge level-basic">Basic</span></td>
+        </tr>
+        <tr>
+          <td>&lt;hr&gt;</td>
+          <td><span class="bn">হরাইজন্টাল লাইন বা দাগ টানার জন্য।</span></td>
+          <td><span class="level-badge level-basic">Basic</span></td>
+        </tr>
+        <tr>
+          <td>&lt;strong&gt; বা &lt;b&gt;</td>
+          <td><span class="bn">টেক্সট বোল্ড (মোটা) করার জন্য। তবে <code>&lt;strong&gt;</code> ব্রাউজারকে বোঝায় যে লেখাটি গুরুত্বপূর্ণ (Semantic)।</span></td>
+          <td><span class="level-badge level-basic">Basic</span></td>
+        </tr>
+        <tr>
+          <td>&lt;em&gt; বা &lt;i&gt;</td>
+          <td><span class="bn">ইটালিক (বাঁকা) করার জন্য। <code>&lt;em&gt;</code> মানে emphasized text, যা স্ক্রিন রিডাররা জোর দিয়ে পড়ে।</span></td>
+          <td><span class="level-badge level-basic">Basic</span></td>
+        </tr>
+        <tr>
+          <td>&lt;mark&gt;</td>
+          <td><span class="bn">টেক্সট হাইলাইট করার জন্য (সাধারণত হলুদ ব্যাকগ্রাউন্ড হয়)।</span></td>
+          <td><span class="level-badge level-mid">Mid</span></td>
+        </tr>
+        <tr>
+          <td>&lt;del&gt; ও &lt;ins&gt;</td>
+          <td><span class="bn"><code>&lt;del&gt;</code> লেখা কেটে দেয় (strikethrough) এবং <code>&lt;ins&gt;</code> লেখার নিচে আন্ডারলাইন করে (inserted)। সাধারণত ই-কমার্স সাইটে ডিসকাউন্ট প্রাইস দেখাতে ব্যবহৃত হয়।</span></td>
+          <td><span class="level-badge level-mid">Mid</span></td>
+        </tr>
+        <tr>
+          <td>&lt;sup&gt; ও &lt;sub&gt;</td>
+          <td><span class="bn">Superscript (যেমন: X<sup>2</sup>) এবং Subscript (যেমন: H<sub>2</sub>O) লেখার জন্য।</span></td>
+          <td><span class="level-badge level-mid">Mid</span></td>
+        </tr>
+        <tr>
+          <td>&lt;blockquote&gt; ও &lt;q&gt;</td>
+          <td><span class="bn">অন্য কারো উক্তি কোট করার জন্য। <code>&lt;q&gt;</code> ছোট কোটেশনের জন্য এবং <code>&lt;blockquote&gt;</code> বড় কোটেশনের জন্য।</span></td>
+          <td><span class="level-badge level-adv">Advanced</span></td>
+        </tr>
+        <tr>
+          <td>&lt;code&gt; ও &lt;pre&gt;</td>
+          <td><span class="bn">কম্পিউটার কোড ওয়েবসাইটে দেখানোর জন্য। <code>&lt;pre&gt;</code> ব্যবহার করলে কোডের ভেতরের স্পেস এবং লাইন ব্রেক হুবহু বজায় থাকে।</span></td>
+          <td><span class="level-badge level-mid">Mid</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="media" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Visuals & Navigation</div>
+    <h2>🖼 Media & Links</h2>
+    <p>ওয়েবসাইটে ইমেজ, ভিডিও, অডিও যুক্ত করা এবং এক পেজ থেকে অন্য পেজে যাওয়ার লিঙ্ক তৈরি করা।</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-filename"><span class="path">HTML</span> Links (Anchor Tag)</span>
+      <span class="cmd-tag tag-html">HTML</span>
+    </div>
+    <pre><span class="cm">&lt;!-- সাধারণ লিঙ্ক --&gt;</span>
+<span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"https://google.com"</span><span class="kw">&gt;</span>Google এ যান<span class="kw">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- target="_blank" দিলে লিঙ্কটি নতুন ট্যাবে ওপেন হবে --&gt;</span>
+<span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"about.html"</span> <span class="fn">target</span>=<span class="st">"_blank"</span><span class="kw">&gt;</span>About Us<span class="kw">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- ইমেইল পাঠানোর লিঙ্ক --&gt;</span>
+<span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"mailto:rahat@example.com"</span><span class="kw">&gt;</span>Email Me<span class="kw">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- ফোন কল করার লিঙ্ক --&gt;</span>
+<span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"tel:+880123456789"</span><span class="kw">&gt;</span>Call Now<span class="kw">&lt;/a&gt;</span></pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-filename"><span class="path">HTML</span> Images & Multimedia</span>
+      <span class="cmd-tag tag-html">HTML</span>
+    </div>
+    <pre><span class="cm">&lt;!-- Image: src তে ছবির লোকেশন এবং alt এ ছবির বর্ণনা (SEO ও Accessibility এর জন্য) --&gt;</span>
+<span class="kw">&lt;img</span> <span class="fn">src</span>=<span class="st">"images/profile.jpg"</span> <span class="fn">alt</span>=<span class="st">"Rahat's Profile Picture"</span> <span class="fn">width</span>=<span class="st">"300"</span><span class="kw">&gt;</span>
+
+<span class="cm">&lt;!-- Video: controls অ্যাট্রিবিউট দিলে প্লে/পজ বাটন আসবে --&gt;</span>
+<span class="kw">&lt;video</span> <span class="fn">width</span>=<span class="st">"500"</span> <span class="fn">controls</span> <span class="fn">autoplay</span> <span class="fn">muted</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;source</span> <span class="fn">src</span>=<span class="st">"tutorial.mp4"</span> <span class="fn">type</span>=<span class="st">"video/mp4"</span><span class="kw">&gt;</span>
+    আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
+<span class="kw">&lt;/video&gt;</span>
+
+<span class="cm">&lt;!-- Audio --&gt;</span>
+<span class="kw">&lt;audio</span> <span class="fn">controls</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;source</span> <span class="fn">src</span>=<span class="st">"song.mp3"</span> <span class="fn">type</span>=<span class="st">"audio/mpeg"</span><span class="kw">&gt;</span>
+<span class="kw">&lt;/audio&gt;</span>
+
+<span class="cm">&lt;!-- Iframe: অন্য ওয়েবসাইট বা ইউটিউব ভিডিও এম্বেড করার জন্য --&gt;</span>
+<span class="kw">&lt;iframe</span> <span class="fn">src</span>=<span class="st">"https://www.youtube.com/embed/dQw4w9WgXcQ"</span> <span class="fn">width</span>=<span class="st">"560"</span> <span class="fn">height</span>=<span class="st">"315"</span> <span class="fn">frameborder</span>=<span class="st">"0"</span> <span class="fn">allowfullscreen</span><span class="kw">&gt;&lt;/iframe&gt;</span></pre>
+  </div>
+</section>
+
+<section id="tables" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Data Presentation</div>
+    <h2>📋 Tables & Lists</h2>
+    <p>ডেটা সুন্দরভাবে সাজিয়ে দেখানোর জন্য লিস্ট এবং টেবিল লেআউট।</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-filename"><span class="path">HTML</span> Lists (Unordered, Ordered, Description)</span>
+      <span class="cmd-tag tag-html">HTML</span>
+    </div>
+    <pre><span class="cm">&lt;!-- Unordered List (বুলেট পয়েন্ট) --&gt;</span>
+<span class="kw">&lt;ul&gt;</span>
+    <span class="kw">&lt;li&gt;</span>HTML<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>CSS<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>JavaScript<span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span>
+
+<span class="cm">&lt;!-- Ordered List (১, ২, ৩ বা A, B, C) --&gt;</span>
+<span class="kw">&lt;ol</span> <span class="fn">type</span>=<span class="st">"A"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Frontend<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Backend<span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ol&gt;</span></pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-filename"><span class="path">HTML</span> Advanced Table Structure</span>
+      <span class="cmd-tag tag-html">HTML</span>
+    </div>
+    <pre><span class="cm">&lt;!-- একটি সম্পূর্ণ টেবিল স্ট্রাকচার --&gt;</span>
+<span class="kw">&lt;table</span> <span class="fn">border</span>=<span class="st">"1"</span><span class="kw">&gt;</span>
+    <span class="cm">&lt;!-- টেবিলের হেড অংশ --&gt;</span>
+    <span class="kw">&lt;thead&gt;</span>
+        <span class="kw">&lt;tr&gt;</span>  <span class="cm">&lt;!-- Table Row --&gt;</span>
+            <span class="kw">&lt;th&gt;</span>নাম<span class="kw">&lt;/th&gt;</span>  <span class="cm">&lt;!-- Table Heading --&gt;</span>
+            <span class="kw">&lt;th&gt;</span>বয়স<span class="kw">&lt;/th&gt;</span>
+            <span class="kw">&lt;th&gt;</span>পেশা<span class="kw">&lt;/th&gt;</span>
+        <span class="kw">&lt;/tr&gt;</span>
+    <span class="kw">&lt;/thead&gt;</span>
+    
+    <span class="cm">&lt;!-- টেবিলের মূল বডি অংশ --&gt;</span>
+    <span class="kw">&lt;tbody&gt;</span>
+        <span class="kw">&lt;tr&gt;</span>
+            <span class="kw">&lt;td&gt;</span>Rahat<span class="kw">&lt;/td&gt;</span>  <span class="cm">&lt;!-- Table Data --&gt;</span>
+            <span class="kw">&lt;td&gt;</span>29<span class="kw">&lt;/td&gt;</span>
+            <span class="kw">&lt;td&gt;</span>Developer<span class="kw">&lt;/td&gt;</span>
+        <span class="kw">&lt;/tr&gt;</span>
+        <span class="kw">&lt;tr&gt;</span>
+            <span class="kw">&lt;td</span> <span class="fn">colspan</span>=<span class="st">"2"</span><span class="kw">&gt;</span>Colspan ২টি কলামকে একসাথে করে দেয়<span class="kw">&lt;/td&gt;</span>
+            <span class="kw">&lt;td</span> <span class="fn">rowspan</span>=<span class="st">"2"</span><span class="kw">&gt;</span>Rowspan ২টি সারিকে একসাথে করে<span class="kw">&lt;/td&gt;</span>
+        <span class="kw">&lt;/tr&gt;</span>
+    <span class="kw">&lt;/tbody&gt;</span>
+<span class="kw">&lt;/table&gt;</span></pre>
+  </div>
+</section>
+
+<section id="forms" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">User Interaction</div>
+    <h2>📝 Forms & Inputs</h2>
+    <p>ইউজার থেকে ডেটা (যেমন: লগইন, রেজিস্ট্রেশন, কন্টাক্ট) নেওয়ার জন্য ফর্ম সবচেয়ে গুরুত্বপূর্ণ।</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Input Type</th>
+          <th>ব্যবহার</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>type="text"</code></td>
+          <td><span class="bn">সাধারণ লেখা (নাম, ইউজারনেম)।</span></td>
+        </tr>
+        <tr>
+          <td><code>type="email"</code></td>
+          <td><span class="bn">ইমেইল নেওয়ার জন্য (অটোমেটিক @ চেক করে)।</span></td>
+        </tr>
+        <tr>
+          <td><code>type="password"</code></td>
+          <td><span class="bn">পাসওয়ার্ডের জন্য (লেখাগুলো ডট বা স্টার হয়ে যায়)।</span></td>
+        </tr>
+        <tr>
+          <td><code>type="number"</code></td>
+          <td><span class="bn">শুধুমাত্র সংখ্যা নেওয়ার জন্য (বয়স, ফোন নম্বর)।</span></td>
+        </tr>
+        <tr>
+          <td><code>type="radio"</code></td>
+          <td><span class="bn">একাধিক অপশন থেকে একটি সিলেক্ট করার জন্য (যেমন: Gender: Male/Female)।</span></td>
+        </tr>
+        <tr>
+          <td><code>type="checkbox"</code></td>
+          <td><span class="bn">একাধিক অপশন সিলেক্ট করার জন্য (যেমন: Hobbies)।</span></td>
+        </tr>
+        <tr>
+          <td><code>type="date"</code></td>
+          <td><span class="bn">তারিখ নির্বাচন করার জন্য একটি ক্যালেন্ডার পপআপ দেখায়।</span></td>
+        </tr>
+        <tr>
+          <td><code>type="file"</code></td>
+          <td><span class="bn">কম্পিউটার থেকে ছবি বা ডকুমেন্ট আপলোড করার জন্য।</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-filename"><span class="path">HTML</span> Complete Registration Form</span>
+      <span class="cmd-tag tag-html">HTML</span>
+    </div>
+    <pre><span class="cm">&lt;!-- action: ডেটা কোথায় যাবে, method: GET বা POST --&gt;</span>
+<span class="kw">&lt;form</span> <span class="fn">action</span>=<span class="st">"/submit"</span> <span class="fn">method</span>=<span class="st">"POST"</span><span class="kw">&gt;</span>
+
+    <span class="cm">&lt;!-- Label: ইনপুট ফিল্ডের নাম, for এবং id ম্যাচ করতে হবে --&gt;</span>
+    <span class="kw">&lt;label</span> <span class="fn">for</span>=<span class="st">"username"</span><span class="kw">&gt;</span>Username:<span class="kw">&lt;/label&gt;</span>
+    <span class="kw">&lt;input</span> <span class="fn">type</span>=<span class="st">"text"</span> <span class="fn">id</span>=<span class="st">"username"</span> <span class="fn">name</span>=<span class="st">"user"</span> <span class="fn">placeholder</span>=<span class="st">"Enter name"</span> <span class="fn">required</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;br&gt;&lt;br&gt;</span>
+
+    <span class="kw">&lt;label</span> <span class="fn">for</span>=<span class="st">"pwd"</span><span class="kw">&gt;</span>Password:<span class="kw">&lt;/label&gt;</span>
+    <span class="kw">&lt;input</span> <span class="fn">type</span>=<span class="st">"password"</span> <span class="fn">id</span>=<span class="st">"pwd"</span> <span class="fn">name</span>=<span class="st">"password"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;br&gt;&lt;br&gt;</span>
+
+    <span class="cm">&lt;!-- Radio Button (name এক হতে হবে যাতে একটা সিলেক্ট হয়) --&gt;</span>
+    <span class="kw">&lt;p&gt;</span>Gender:<span class="kw">&lt;/p&gt;</span>
+    <span class="kw">&lt;input</span> <span class="fn">type</span>=<span class="st">"radio"</span> <span class="fn">id</span>=<span class="st">"male"</span> <span class="fn">name</span>=<span class="st">"gender"</span> <span class="fn">value</span>=<span class="st">"male"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;label</span> <span class="fn">for</span>=<span class="st">"male"</span><span class="kw">&gt;</span>Male<span class="kw">&lt;/label&gt;</span>
+    <span class="kw">&lt;input</span> <span class="fn">type</span>=<span class="st">"radio"</span> <span class="fn">id</span>=<span class="st">"female"</span> <span class="fn">name</span>=<span class="st">"gender"</span> <span class="fn">value</span>=<span class="st">"female"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;label</span> <span class="fn">for</span>=<span class="st">"female"</span><span class="kw">&gt;</span>Female<span class="kw">&lt;/label&gt;</span>
+    <span class="kw">&lt;br&gt;&lt;br&gt;</span>
+
+    <span class="cm">&lt;!-- Dropdown Selection --&gt;</span>
+    <span class="kw">&lt;label</span> <span class="fn">for</span>=<span class="st">"country"</span><span class="kw">&gt;</span>Country:<span class="kw">&lt;/label&gt;</span>
+    <span class="kw">&lt;select</span> <span class="fn">id</span>=<span class="st">"country"</span> <span class="fn">name</span>=<span class="st">"country"</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;option</span> <span class="fn">value</span>=<span class="st">"bd"</span><span class="kw">&gt;</span>Bangladesh<span class="kw">&lt;/option&gt;</span>
+        <span class="kw">&lt;option</span> <span class="fn">value</span>=<span class="st">"usa"</span><span class="kw">&gt;</span>USA<span class="kw">&lt;/option&gt;</span>
+    <span class="kw">&lt;/select&gt;</span>
+    <span class="kw">&lt;br&gt;&lt;br&gt;</span>
+
+    <span class="cm">&lt;!-- Textarea (বড় মেসেজের জন্য) --&gt;</span>
+    <span class="kw">&lt;label</span> <span class="fn">for</span>=<span class="st">"message"</span><span class="kw">&gt;</span>Message:<span class="kw">&lt;/label&gt;</span>
+    <span class="kw">&lt;textarea</span> <span class="fn">id</span>=<span class="st">"message"</span> <span class="fn">name</span>=<span class="st">"msg"</span> <span class="fn">rows</span>=<span class="st">"4"</span> <span class="fn">cols</span>=<span class="st">"30"</span><span class="kw">&gt;&lt;/textarea&gt;</span>
+    <span class="kw">&lt;br&gt;&lt;br&gt;</span>
+
+    <span class="cm">&lt;!-- Submit Button --&gt;</span>
+    <span class="kw">&lt;button</span> <span class="fn">type</span>=<span class="st">"submit"</span><span class="kw">&gt;</span>Register<span class="kw">&lt;/button&gt;</span>
+
+<span class="kw">&lt;/form&gt;</span></pre>
+  </div>
+</section>
+
+<section id="semantic" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Modern HTML5</div>
+    <h2>🧱 Semantic Tags & Layout</h2>
+    <p>শুধু <code>&lt;div&gt;</code> ব্যবহার না করে, অর্থপূর্ণ ট্যাগ ব্যবহার করা, যা SEO এবং স্ক্রিন রিডারদের জন্য দারুণ।</p>
+  </div>
+
+  <div class="tip"><strong>💡 কেন জরুরি?</strong> গুগল বা সার্চ ইঞ্জিনগুলো সেমান্টিক ট্যাগ দেখে বুঝতে পারে পেজের কোন অংশে কী আছে। এতে ওয়েবসাইট দ্রুত র‍্যাংক হয়।</div>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-filename"><span class="path">HTML</span> Semantic Page Layout</span>
+      <span class="cmd-tag tag-html">HTML</span>
+    </div>
+    <pre><span class="kw">&lt;body&gt;</span>
+
+    <span class="cm">&lt;!-- হেডারের জন্য (লোগো, সাইটের নাম) --&gt;</span>
+    <span class="kw">&lt;header&gt;</span>
+        <span class="kw">&lt;h1&gt;</span>My Blog<span class="kw">&lt;/h1&gt;</span>
+        <span class="cm">&lt;!-- নেভিগেশন মেনুর জন্য --&gt;</span>
+        <span class="kw">&lt;nav&gt;</span>
+            <span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"/"</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/a&gt;</span> | <span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"/about"</span><span class="kw">&gt;</span>About<span class="kw">&lt;/a&gt;</span>
+        <span class="kw">&lt;/nav&gt;</span>
+    <span class="kw">&lt;/header&gt;</span>
+
+    <span class="cm">&lt;!-- পেজের মূল কনটেন্ট --&gt;</span>
+    <span class="kw">&lt;main&gt;</span>
+        <span class="cm">&lt;!-- নির্দিষ্ট কোনো বিষয়ভিত্তিক সেকশন --&gt;</span>
+        <span class="kw">&lt;section</span> <span class="fn">id</span>=<span class="st">"latest-posts"</span><span class="kw">&gt;</span>
+            <span class="cm">&lt;!-- একটি স্বয়ংসম্পূর্ণ আর্টিকেল বা ব্লগ পোস্ট --&gt;</span>
+            <span class="kw">&lt;article&gt;</span>
+                <span class="kw">&lt;h2&gt;</span>HTML5 Features<span class="kw">&lt;/h2&gt;</span>
+                <span class="kw">&lt;p&gt;</span>HTML5 introduced many semantic tags...<span class="kw">&lt;/p&gt;</span>
+            <span class="kw">&lt;/article&gt;</span>
+        <span class="kw">&lt;/section&gt;</span>
+
+        <span class="cm">&lt;!-- সাইডবার বা অতিরিক্ত কনটেন্টের জন্য --&gt;</span>
+        <span class="kw">&lt;aside&gt;</span>
+            <span class="kw">&lt;h3&gt;</span>Related Links<span class="kw">&lt;/h3&gt;</span>
+            <span class="kw">&lt;ul&gt;</span>...<span class="kw">&lt;/ul&gt;</span>
+        <span class="kw">&lt;/aside&gt;</span>
+    <span class="kw">&lt;/main&gt;</span>
+
+    <span class="cm">&lt;!-- পেজের নিচ অংশে (কপিরাইট, লিঙ্কস) --&gt;</span>
+    <span class="kw">&lt;footer&gt;</span>
+        <span class="kw">&lt;p&gt;</span>&amp;copy; 2026 Rahat. All rights reserved.<span class="kw">&lt;/p&gt;</span>
+    <span class="kw">&lt;/footer&gt;</span>
+
+<span class="kw">&lt;/body&gt;</span></pre>
+  </div>
+</section>
+
+<section id="advanced" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Pro Level Features</div>
+    <h2>🚀 Advanced HTML & SEO</h2>
+    <p>ওয়েবসাইটকে প্রফেশনাল স্তরে নিয়ে যাওয়ার জন্য মেটা ট্যাগ, গ্রাফিক্স এবং নতুন HTML5 ফিচারস।</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-filename"><span class="path">HTML</span> SEO & Meta Tags (Head Section)</span>
+      <span class="cmd-tag tag-html">HTML</span>
+    </div>
+    <pre><span class="kw">&lt;head&gt;</span>
+    <span class="cm">&lt;!-- সার্চ ইঞ্জিনের জন্য ওয়েবসাইটের ডেসক্রিপশন --&gt;</span>
+    <span class="kw">&lt;meta</span> <span class="fn">name</span>=<span class="st">"description"</span> <span class="fn">content</span>=<span class="st">"HTML Learning roadmap from basic to advanced."</span><span class="kw">&gt;</span>
+    
+    <span class="cm">&lt;!-- ওয়েবসাইটের কিওয়ার্ডস --&gt;</span>
+    <span class="kw">&lt;meta</span> <span class="fn">name</span>=<span class="st">"keywords"</span> <span class="fn">content</span>=<span class="st">"HTML, HTML5, Web Development, Bangla Guide"</span><span class="kw">&gt;</span>
+    
+    <span class="cm">&lt;!-- ওয়েবসাইটের অথরের নাম --&gt;</span>
+    <span class="kw">&lt;meta</span> <span class="fn">name</span>=<span class="st">"author"</span> <span class="fn">content</span>=<span class="st">"Md. Moklasur Rahaman"</span><span class="kw">&gt;</span>
+
+    <span class="cm">&lt;!-- Open Graph (Facebook, LinkedIn এ লিংক শেয়ার করলে যে প্রিভিউ দেখায়) --&gt;</span>
+    <span class="kw">&lt;meta</span> <span class="fn">property</span>=<span class="st">"og:title"</span> <span class="fn">content</span>=<span class="st">"HTML Complete Guide"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;meta</span> <span class="fn">property</span>=<span class="st">"og:image"</span> <span class="fn">content</span>=<span class="st">"https://example.com/banner.jpg"</span><span class="kw">&gt;</span>
+<span class="kw">&lt;/head&gt;</span></pre>
+  </div>
+
+  <div class="cmd-block">
+    <div class="cmd-header">
+      <div class="cmd-dots"><span></span><span></span><span></span></div>
+      <span class="cmd-title">Modern HTML5 Elements</span>
+      <span class="cmd-tag tag-info">INFO</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-item">
+        <span class="cmd-code">&lt;dialog&gt;</span>
+        <div class="cmd-desc">
+          <span class="bn">👉 Native পপআপ বা মডাল (Modal) বানানোর জন্য। JavaScript বা থার্ড-পার্টি লাইব্রেরি ছাড়াই কাজ করে।</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <span class="cmd-code">&lt;details&gt; এবং &lt;summary&gt;</span>
+        <div class="cmd-desc">
+          <span class="bn">👉 Accordion বা ড্রপডাউন টেক্সট (FAQ সেকশনের মতো) বানাতে ব্যবহৃত হয়। <code>&lt;summary&gt;</code> এ ক্লিক করলে ভেতরের কনটেন্ট বের হয়ে আসে।</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <span class="cmd-code">&lt;canvas&gt;</span>
+        <div class="cmd-desc">
+          <span class="bn">👉 JavaScript ব্যবহার করে গ্রাফিক্স, ২ডি (2D) গেম বা অ্যানিমেশন ড্র করার জন্য একটি ফাঁকা জায়গা তৈরি করে।</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <span class="cmd-code">&lt;svg&gt;</span>
+        <div class="cmd-desc">
+          <span class="bn">👉 Scalable Vector Graphics। কোড লিখে আইকন বা ভেক্টর ড্রইং করার জন্য। এটি জুম করলেও কখনো ফাটে না।</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">শেখার পথ</div>
+    <h2>🗺 Basic → Pro Roadmap</h2>
+    <p>ধাপে ধাপে HTML এক্সপার্ট হওয়ার পথ।</p>
+  </div>
+
+  <div class="roadmap">
+    <div class="rm-item done">
+      <div class="rm-title">🟢 Stage 1 — HTML Basics <span class="level-badge level-basic">Basic</span></div>
+      <ul class="rm-list">
+        <li>VS Code Setup ও Boilerplate (Emmet) বোঝা।</li>
+        <li>Tags, Elements এবং Attributes এর ধারণা।</li>
+        <li>Heading (h1-h6) এবং Paragraph (p)।</li>
+        <li>Links (Anchor Tag) এবং Image যুক্ত করা।</li>
+        <li>Lists (ul, ol, li) তৈরি করা।</li>
+      </ul>
+    </div>
+    <div class="rm-item">
+      <div class="rm-title">🔵 Stage 2 — Intermediate <span class="level-badge level-mid">Mid</span></div>
+      <ul class="rm-list">
+        <li>Complex Tables (rowspan, colspan, thead, tbody)।</li>
+        <li>HTML Forms (input types, label, textareas)।</li>
+        <li>Form validation (required, min, max, pattern)।</li>
+        <li>Media tags (audio, video, iframe)।</li>
+        <li>Text formatting (strong, em, mark, del)।</li>
+      </ul>
+    </div>
+    <div class="rm-item">
+      <div class="rm-title">🟠 Stage 3 — Advanced & Semantic <span class="level-badge level-adv">Advanced</span></div>
+      <ul class="rm-list">
+        <li>Semantic Tags (header, footer, main, article, section)।</li>
+        <li>SEO মেটা ট্যাগ এবং Open Graph (OG) ডাটা।</li>
+        <li><code>&lt;details&gt;</code>, <code>&lt;summary&gt;</code>, <code>&lt;dialog&gt;</code> এর ব্যবহার।</li>
+        <li>SVG এবং Canvas এর বেসিক ধারণা।</li>
+      </ul>
+    </div>
+    <div class="rm-item">
+      <div class="rm-title">🔴 Stage 4 — Pro Expert / Web APIs</div>
+      <ul class="rm-list">
+        <li>Web Accessibility (a11y) এবং ARIA Attributes।</li>
+        <li>HTML5 Web Storage (Local Storage & Session Storage)।</li>
+        <li>Geolocation API (কোড দিয়ে ইউজারের লোকেশন বের করা)।</li>
+        <li>Web Workers এবং Service Workers এর তাত্ত্বিক ধারণা।</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 32px;">
+    <div class="section-eyebrow" style="margin-bottom: 16px;">🔗 সেরা লার্নিং রিসোর্স</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🦊</div>
+        <h3>MDN Web Docs</h3>
+        <p>developer.mozilla.org — HTML এর সবচেয়ে নির্ভরযোগ্য এবং অফিসিয়াল ডক্যুমেন্টেশন।</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏫</div>
+        <h3>W3Schools</h3>
+        <p>w3schools.com/html — নতুনদের প্র্যাকটিস করার জন্য সবচেয়ে সহজ ওয়েবসাইট।</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏕️</div>
+        <h3>FreeCodeCamp</h3>
+        <p>freecodecamp.org — ইন্টারঅ্যাক্টিভ কোডিং চ্যালেঞ্জের মাধ্যমে HTML/CSS শেখার জন্য সেরা প্ল্যাটফর্ম।</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">✅</div>
+        <h3>HTML Validator</h3>
+        <p>validator.w3.org — তোমার লেখা HTML কোডে কোনো ভুল আছে কিনা তা চেক করার টুল।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  Built for Frontend developers learning in Bangla &amp; English · Basic to Pro HTML Guide
+</footer>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
+
+```
